@@ -43,14 +43,6 @@ const getCss = (request, response) => {
   response.end();
 };
 
-const get200 = (request, response) => {
-  handleResponse(request, response, 200, 'This is a successful response');
-};
-
-const get201 = (request, response) => {
-  handleResponse(request, response, 200, 'This is a successful response');
-};
-
 const get404 = (request, response) => {
   handleResponse(request, response, 404, 'The page you are looking for was not found.', 'notFound');
 };
@@ -58,7 +50,5 @@ const get404 = (request, response) => {
 module.exports = {
   getIndex,
   getCss,
-  get200,
-  get201,
   get404,
 };
