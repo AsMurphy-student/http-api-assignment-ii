@@ -22,14 +22,17 @@
           content.innerHTML = `<b>Bad Request</b>`;
           break;
         default:
-          content.innerHTML = `Error code not implemented by client.`;
+          content.innerHTML = `<b>Not Found</b>`;
           break;
       }
 
       if (parseResponse) {
         const obj = await response.json();
 
-        if(obj.users){
+        if(obj.message){
+          content.innerHTML += `<p>Message: ${obj.message}</p>`;
+        }
+        else if(obj.users){
           content.innerHTML += `<p>${JSON.stringify(obj.users)}</p>`;
         }
       }
@@ -53,7 +56,7 @@
         body: formData,
       });
 
-      handleResponse(response);
+      handleResponse(response, true);
     };
 
     const requestUpdate = async (userForm) => {

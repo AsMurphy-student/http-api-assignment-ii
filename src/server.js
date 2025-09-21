@@ -5,15 +5,17 @@ const jsonHandler = require('./jsonHandler.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
+// URL Struct
 const urlStruct = {
   '/': htmlHandler.getIndex,
   '/style.css': htmlHandler.getCss,
   '/getUsers': jsonHandler.getUsers,
-  '/addUser': jsonHandler.addUser,
   '/notReal': htmlHandler.get404,
   notFound: htmlHandler.get404,
 };
 
+// Parse the body as packets are received
+// and call handler when all packets are received
 const parseBody = (request, response, handler) => {
   const body = [];
 
@@ -35,17 +37,19 @@ const parseBody = (request, response, handler) => {
   });
 };
 
+// Handle post requests
 const handlePost = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/addUser') {
     parseBody(request, response, jsonHandler.addUser);
   }
 };
 
-// handle GET requests
+// Handle get requests
 const handleGet = (request, response, parsedUrl) => (urlStruct[parsedUrl.pathname]
   ? urlStruct[parsedUrl.pathname](request, response)
   : urlStruct.notFound(request, response));
 
+// On Request Function
 const onRequest = (request, response) => {
   const protocol = request.connection.encrypted ? 'https' : 'http';
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);

@@ -1,5 +1,7 @@
+// Users array
 const users = {};
 
+// Send JSON response
 const respondJSON = (request, response, status, object) => {
   const content = JSON.stringify(object);
 
@@ -17,6 +19,7 @@ const respondJSON = (request, response, status, object) => {
   response.end();
 };
 
+// Get users handler
 const getUsers = (request, response) => {
   const responseJSON = {
     users,
@@ -25,6 +28,7 @@ const getUsers = (request, response) => {
   return respondJSON(request, response, 200, responseJSON);
 };
 
+// Add user handler
 const addUser = (request, response) => {
   const responseJSON = {
     message: 'Name and age are both required.',
